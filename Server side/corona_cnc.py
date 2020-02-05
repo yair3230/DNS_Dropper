@@ -184,7 +184,7 @@ def sniffer():
 
 
 def build_grid(window, rows, columns):
-    """Builds a grid"""
+    """UI: Builds a grid"""
     num = 0
     while num < rows:
         window.rowconfigure(num, weight=1)
@@ -196,16 +196,18 @@ def build_grid(window, rows, columns):
 
 
 def def_label(root, text):
+    """UI: default label design"""
     return Label(root, fg=FG_ONE, bg=BG_ONE, text=text, font=FONT)
 
 
 def def_entry(root):
+    """UI: default entry design"""
     return Entry(root, fg=FG_ONE, justify='center', bg=BG_TWO, font=FONT,
                  readonlybackground=BG_ONE, state="readonly")
 
 
 def rewrite_entry(entry, text):
-    """Rewrites the text in the entry"""
+    """UI: Rewrites the text in the entry"""
     entry.config(state="normal")
     entry.delete(0, END)
     entry.insert(0, text)
@@ -213,12 +215,13 @@ def rewrite_entry(entry, text):
 
 
 def allow_upload():
+    """Changing the HeartBeat address,
+    which will signal the user to start requesting the file."""
     global hb_ip, upload_e, content
-
-    # Changing the HeartBeat address, which will signal the user to start requesting
-    # the file.
     last_octet = hb_ip.split(".")[3] - 1
     hb_ip = f"{hb_ip[0]}.{hb_ip[1]}.{hb_ip[2]}.{last_octet}"
+    
+    # Get file path from UI's entry.
     path = upload_e.get()
     with open(path, "rb") as open_file:
         content = open_file.read()
@@ -226,7 +229,8 @@ def allow_upload():
 
 
 def get_iface_data():
-    # Get interface ip
+    
+    #Get interface ip
     ips = os.popen("ip -4 a").readlines()
     result = []
 
@@ -257,6 +261,7 @@ def main():
     sniffer_thread = th.Thread(target=sniffer)
     sniffer_thread.start()
 
+    # UI: start the UI.
     root = tk.Tk()
     app = MainWindow(root)
     root.mainloop()
