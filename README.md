@@ -1,4 +1,4 @@
-# DNS_Crawler
+# DNS_Dropper
 A fileless malware, that can contanct a cnc and transfer a file, in a not too suspicious way.
 
 Demo: https://www.youtube.com/watch?v=xUZ_MpKpX0Y
